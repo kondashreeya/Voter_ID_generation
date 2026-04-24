@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voter List</title>
+
+<style>
+table{
+width:100%;
+border-collapse:collapse;
+}
+th,td{
+border:1px solid black;
+padding:10px;
+text-align:center;
+}
+th{
+background:rgb(72, 43, 219);
+color:white;
+}
+a{
+padding:5px 10px;
+background:green;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+.download-btn{
+    background:green;
+    color:white;
+    padding:6px 14px;
+    text-decoration:none;
+    border-radius:6px;
+}
+</style>
+</head>
+<body>
+
+<h2>Voter List</h2>
+
+<a href="/add/">Add Fields</a>
+
+<br><br>
+
+<table>
+<tr>
+<th>S No</th>
+<th>Name</th>
+<th>View</th>
+<th>Edit</th>
+<th>Delete</th>
+</tr>
+
+{% for i in data %}
+<tr>
+<td>{{forloop.counter}}</td>
+<td>{{i.name}}</td>
+<td><a href="/view/{{i.id}}/">View</a></td>
+<td><a href="/edit/{{i.id}}/">Edit</a></td>
+<td>
+<a href="/delete/{{i.id}}/"
+onclick="return confirm('Are you sure you want to delete ?')">
+Delete
+</a>
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

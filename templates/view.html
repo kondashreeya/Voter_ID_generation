@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voter Card</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:30px;
+    background:#eaeaea;
+    font-family:Arial;
+    text-align:center;
+}
+
+.card{
+    width:900px;
+    height:560px;
+    margin:auto;
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 0 15px gray;
+    background:white;
+}
+
+/* background image */
+.bg{
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+}
+
+/* fixed photo box */
+.photo-box{
+    position:absolute;
+    top:210px;
+    left:35px;
+    width:220px;
+    height:300px;
+    border:2px solid #888;
+    overflow:hidden;
+}
+
+.photo-box img{
+    width:100%;
+    height:100%;
+}
+
+/* labels */
+.labels{
+    position:absolute;
+    top:175px;
+    left:320px;
+    font-size:20px;
+    font-weight:bold;
+    line-height:50px;
+    text-align:left;
+}
+
+/* dynamic values */
+.values{
+    position:absolute;
+    top:175px;
+    left:500px;
+    font-size:20px;
+    font-weight:bold;
+    line-height:50px;
+    text-align:left;
+}
+
+.back{
+    margin-top:25px;
+}
+
+.back a{
+    text-decoration:none;
+    background:green;
+    color:white;
+    padding:10px 30px;
+    border-radius:8px;
+    font-size:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- Background -->
+<img src="https://hdcardprint.com/wp-content/uploads/2025/03/VOTE-FRONT.jpg" class="bg" alt="">
+
+<!-- Photo -->
+<div class="photo-box">
+    <img src="{{ voter.photo.url }}" alt="">
+</div>
+
+<!-- Default Labels -->
+<div class="labels">
+    Name:<br>
+    Father's Name:<br>
+    Gender:<br>
+    Date of Birth / Age:
+</div>
+
+<!-- Form Values -->
+<div class="values">
+    {{ voter.name }}<br>
+    {{ voter.father_name }}<br>
+    {{ voter.gender }}<br>
+    {{ voter.dob }}
+</div>
+
+</div>
+
+<div class="back">
+    <a href="/">Back</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!-- templates/form.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voter Form</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(to right,#dbeafe,#eff6ff);
+}
+
+.container{
+    width:500px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#0f172a;
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    font-size:15px;
+}
+
+input:focus, select:focus{
+    outline:none;
+    border:1px solid #2563eb;
+}
+
+.btns{
+    margin-top:25px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.back-btn{
+    text-decoration:none;
+    background:#ef4444;
+    color:white;
+    padding:10px 22px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.submit-btn{
+    background:#16a34a;
+    color:white;
+    border:none;
+    padding:10px 22px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back-btn:hover{
+    background:#dc2626;
+}
+
+.submit-btn:hover{
+    background:#15803d;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Add Voter Details</h2>
+
+<!-- templates/form.html -->
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+
+<label>Name</label>
+<input type="text" name="name" placeholder="Full anme" required value="{{ voter.name|default:'' }}">
+
+<label>Father Name</label>
+<input type="text" name="father_name" placeholder="Father name" required value="{{ voter.father_name|default:'' }}">
+
+<label>Gender</label>
+
+<select name="gender" required title="gender">
+    <option value="">Select Gender</option>
+
+    <option value="Male"
+        {% if voter.gender == "Male" %}selected{% endif %}>
+        Male
+    </option>
+
+    <option value="Female"
+        {% if voter.gender == "Female" %}selected{% endif %}>
+        Female
+    </option>
+
+    <option value="Other"
+        {% if voter.gender == "Other" %}selected{% endif %}>
+        Other
+    </option>
+</select>
+
+<label>Date of Birth</label>
+<input type="date" name="dob" required value="{{ voter.dob|date:'Y-m-d' }}" placeholder="DOB">
+
+<label>Voter Number</label>
+<input type="text" name="voter_no" placeholder="Number" required
+value="{{ voter.voter_no|default:'' }}">
+
+<label>Upload Photo</label>
+<input type="file" name="photo" title="photo">
+
+<div class="btns">
+<a href="/" class="back-btn">Back</a>
+<button type="submit" class="submit-btn">Submit</button>
+</div>
+
+</form>
+</div>
+
+</body>
+</html>
