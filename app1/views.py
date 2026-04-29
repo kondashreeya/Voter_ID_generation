@@ -3,6 +3,8 @@ from .models import Voter
 from django.http import HttpResponse
 from xhtml2pdf import pisa
 from django.template.loader import get_template
+import re
+from django.contrib import messages
 
 
 def home(request):
@@ -12,16 +14,22 @@ def home(request):
 
 def add(request):
     if request.method == "POST":
+        voter_no = request.POST['voter_no'].upper()  # convert to uppercase
+        pattern = r'^[A-Z]{5}[0-9]{4}[A-Z]$'
+        if not re.match(pattern, voter_no):
+            messages.error(request, "Invalid Voter Number (Format: ABCDE1234F)")
+            return render(request, 'form.html')
         Voter.objects.create(
             name=request.POST['name'],
             father_name=request.POST['father_name'],
             gender=request.POST['gender'],
             dob=request.POST['dob'],
-            voter_no=request.POST['voter_no'],
-            photo=request.FILES['photo']
+            voter_no=voter_no,
+            photo=request.FILES.get('photo')
         )
         return redirect('/')
     return render(request, 'form.html')
+
 
 
 def edit(request, id):

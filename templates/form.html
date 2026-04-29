@@ -1,5 +1,3 @@
-<!-- templates/form.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,8 +24,14 @@ body{
 
 h2{
     text-align:center;
-    margin-bottom:25px;
+    margin-bottom:15px;
     color:#0f172a;
+}
+
+.error{
+    color:red;
+    text-align:center;
+    margin-bottom:10px;
 }
 
 label{
@@ -91,47 +95,47 @@ input:focus, select:focus{
 
 <h2>Add Voter Details</h2>
 
-<!-- templates/form.html -->
+<!-- 🔥 Error Messages -->
+{% if messages %}
+  {% for message in messages %}
+    <div class="error">{{ message }}</div>
+  {% endfor %}
+{% endif %}
 
 <form method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 
 <label>Name</label>
-<input type="text" name="name" placeholder="Full anme" required value="{{ voter.name|default:'' }}">
+<input type="text" name="name" placeholder="Full name" required
+value="{{ voter.name|default:'' }}">
 
 <label>Father Name</label>
-<input type="text" name="father_name" placeholder="Father name" required value="{{ voter.father_name|default:'' }}">
+<input type="text" name="father_name" placeholder="Father name" required
+value="{{ voter.father_name|default:'' }}">
 
 <label>Gender</label>
-
 <select name="gender" required title="gender">
     <option value="">Select Gender</option>
-
-    <option value="Male"
-        {% if voter.gender == "Male" %}selected{% endif %}>
-        Male
-    </option>
-
-    <option value="Female"
-        {% if voter.gender == "Female" %}selected{% endif %}>
-        Female
-    </option>
-
-    <option value="Other"
-        {% if voter.gender == "Other" %}selected{% endif %}>
-        Other
-    </option>
+    <option value="Male" {% if voter.gender == "Male" %}selected{% endif %}>Male</option>
+    <option value="Female" {% if voter.gender == "Female" %}selected{% endif %}>Female</option>
+    <option value="Other" {% if voter.gender == "Other" %}selected{% endif %}>Other</option>
 </select>
 
 <label>Date of Birth</label>
-<input type="date" name="dob" required value="{{ voter.dob|date:'Y-m-d' }}" placeholder="DOB">
+<input type="date" name="dob" required
+value="{{ voter.dob|date:'Y-m-d' }}" placeholder="DOB">
 
 <label>Voter Number</label>
-<input type="text" name="voter_no" placeholder="Number" required
-value="{{ voter.voter_no|default:'' }}">
+<input type="text" name="voter_no"
+       placeholder="ABCDE1234F"
+       pattern="[A-Z]{5}[0-9]{4}[A-Z]"
+       title="Format: ABCDE1234F"
+       oninput="this.value = this.value.toUpperCase()"
+       required
+       value="{{ voter.voter_no|default:'' }}">
 
 <label>Upload Photo</label>
-<input type="file" name="photo" title="photo">
+<input type="file" name="photo" placeholder="Photo">
 
 <div class="btns">
 <a href="/" class="back-btn">Back</a>
@@ -142,4 +146,4 @@ value="{{ voter.voter_no|default:'' }}">
 </div>
 
 </body>
-</html>
+</html> 
