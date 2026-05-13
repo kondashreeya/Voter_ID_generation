@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Voter
 from django.http import HttpResponse
-from xhtml2pdf import pisa
-from django.template.loader import get_template
+# from xhtml2pdf import pisa
+# from django.template.loader import get_template
 import re
 from django.contrib import messages
 
